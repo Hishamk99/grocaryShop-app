@@ -13,9 +13,6 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text(
             'Your Grocery',
-            style: TextStyle(
-              color: Colors.white,
-            ),
           ),
           actions: [
             IconButton(
@@ -24,7 +21,7 @@ class HomePage extends StatelessWidget {
               },
               icon: const Icon(
                 Icons.add,
-                color: Colors.white,
+                //color: Colors.white,
               ),
             ),
           ],

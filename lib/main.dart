@@ -14,6 +14,16 @@ class GrocaryShop extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
+        appBarTheme: const AppBarTheme(
+          actionsIconTheme: IconThemeData(
+            color: Colors.white,
+            size: 20,
+          ),
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
         brightness: Brightness.dark,
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 52, 150, 144),
