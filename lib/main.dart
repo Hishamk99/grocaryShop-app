@@ -29,7 +29,7 @@ class GrocaryShop extends StatelessWidget {
         ),
         brightness: Brightness.dark,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 52, 150, 144),
+          seedColor: const Color.fromARGB(255, 8, 218, 204),
           surface: const Color.fromARGB(255, 44, 50, 60),
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 49, 57, 59),
