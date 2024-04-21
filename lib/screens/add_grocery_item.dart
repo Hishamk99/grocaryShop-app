@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shop_app/data/categories.dart';
 import 'package:shop_app/models/category_model.dart';
+import 'package:shop_app/models/grocery_model.dart';
+import 'package:shop_app/services/api.dart';
 import 'package:shop_app/widgets/custom_text_form_field.dart';
 
 class AddGroceryItem extends StatefulWidget {
@@ -13,6 +16,9 @@ class AddGroceryItem extends StatefulWidget {
 
 class _AddGroceryItemState extends State<AddGroceryItem> {
   GlobalKey<FormState> formKey = GlobalKey();
+  String? name;
+  int quantity = 0;
+  CategoryModel selectedCategory = categories[Categories.meat]!;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,7 +38,10 @@ class _AddGroceryItemState extends State<AddGroceryItem> {
             key: formKey,
             child: Column(
               children: [
-                const CustomTextFormField(
+                CustomTextFormField(
+                  onSaved: (val) {
+                    name = val;
+                  },
                   text: 'Name',
                 ),
                 const SizedBox(
@@ -41,10 +50,14 @@ class _AddGroceryItemState extends State<AddGroceryItem> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: CustomTextFormField(
+                        onSaved: (val) {
+                          quantity = int.parse(val!);
+                        },
                         text: 'Quantity',
                         initialValue: '1',
+                        keyboardType: TextInputType.number,
                       ),
                     ),
                     const SizedBox(
@@ -52,7 +65,10 @@ class _AddGroceryItemState extends State<AddGroceryItem> {
                     ),
                     Expanded(
                       child: DropdownButtonFormField(
-                        onChanged: (value) {},
+                        value: selectedCategory,
+                        onChanged: (value) {
+                          selectedCategory = value!;
+                        },
                         items: dropDownList,
                       ),
                     ),
@@ -65,14 +81,45 @@ class _AddGroceryItemState extends State<AddGroceryItem> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        formKey.currentState!.reset();
+                      },
                       child: const Text('Reset'),
                     ),
                     const SizedBox(
                       width: 8,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+                          Api()
+                              .post(
+                            url:
+                                'https://grocary-shop-default-rtdb.firebaseio.com/shopping-list.json',
+                            body: json.encode(
+                              {
+                                'name': name,
+                                'quantity': quantity.toString(),
+                                'category': selectedCategory.title
+                              },
+                            ),
+                          )
+                              .then(
+                            (response) {
+                              final Map<String, dynamic> data = response;
+                              Navigator.of(context).pop(
+                                GroceryModel(
+                                  id: data['name'],
+                                  name: name!,
+                                  quantity: quantity,
+                                  categoryItem: selectedCategory,
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
                       child: const Text('Add'),
                     ),
                   ],

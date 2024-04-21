@@ -1,9 +1,16 @@
+//import 'dart:developer';
+
 import 'package:flutter/material.dart';
+//import 'package:http/http.dart' as http;
 import 'package:shop_app/screens/home_page.dart';
 
 import 'screens/add_grocery_item.dart';
 
-void main() {
+void main() async {
+  // http.Response response = await http.get(Uri.parse(
+  //     'https://grocary-shop-default-rtdb.firebaseio.com/shopping-list.json'));
+
+  // log(response.body.toString());
   runApp(const GrocaryShop());
 }
 
