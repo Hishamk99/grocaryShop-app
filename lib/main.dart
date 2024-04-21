@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/home_page.dart';
 
+import 'screens/add_grocery_item.dart';
+
 void main() {
   runApp(const GrocaryShop());
 }
@@ -20,7 +22,11 @@ class GrocaryShop extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 49, 57, 59),
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      routes: {
+        HomePage.id: (context) => const HomePage(),
+        AddGroceryItem.id: (context) => const AddGroceryItem(),
+      },
+      initialRoute: HomePage.id,
     );
   }
 }
