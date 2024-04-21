@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/widgets/grocery_data.dart';
 import 'package:shop_app/widgets/no_data_items.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        body: const NoDataItems(),
+        body: const GroceryData(),
       ),
     );
   }
