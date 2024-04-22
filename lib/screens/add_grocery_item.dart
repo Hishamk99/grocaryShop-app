@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/cubit/get_items_cubit/get_items_cubit.dart';
 import 'package:shop_app/data/categories.dart';
 import 'package:shop_app/models/category_model.dart';
 import 'package:shop_app/models/grocery_model.dart';
@@ -108,14 +110,15 @@ class _AddGroceryItemState extends State<AddGroceryItem> {
                               .then(
                             (response) {
                               final Map<String, dynamic> data = response;
-                              Navigator.of(context).pop(
-                                GroceryModel(
+                              BlocProvider.of<GetItemsCubit>(context).addItem(
+                                item: GroceryModel(
                                   id: data['name'],
                                   name: name!,
-                                  quantity: quantity,
+                                  quantity: quantity.toString(),
                                   categoryItem: selectedCategory,
                                 ),
                               );
+                              Navigator.of(context).pop();
                             },
                           );
                         }

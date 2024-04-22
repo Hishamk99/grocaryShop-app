@@ -1,16 +1,13 @@
 //import 'dart:developer';
 
 import 'package:flutter/material.dart';
-//import 'package:http/http.dart' as http;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/screens/home_page.dart';
 
+import 'cubit/get_items_cubit/get_items_cubit.dart';
 import 'screens/add_grocery_item.dart';
 
-void main() async {
-  // http.Response response = await http.get(Uri.parse(
-  //     'https://grocary-shop-default-rtdb.firebaseio.com/shopping-list.json'));
-
-  // log(response.body.toString());
+void main() {
   runApp(const GrocaryShop());
 }
 
@@ -19,34 +16,37 @@ class GrocaryShop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
+    return BlocProvider(
+      create: (context) => GetItemsCubit(),
+      child: MaterialApp(
+        theme: ThemeData.dark().copyWith(
+          appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(
+              color: Colors.white, //change your color here
+            ),
+            actionsIconTheme: IconThemeData(
+              color: Colors.white,
+              size: 20,
+            ),
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
           ),
-          actionsIconTheme: IconThemeData(
-            color: Colors.white,
-            size: 20,
+          brightness: Brightness.dark,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 8, 218, 204),
+            surface: const Color.fromARGB(255, 44, 50, 60),
           ),
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 49, 57, 59),
         ),
-        brightness: Brightness.dark,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 8, 218, 204),
-          surface: const Color.fromARGB(255, 44, 50, 60),
-        ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 49, 57, 59),
+        debugShowCheckedModeBanner: false,
+        routes: {
+          HomePage.id: (context) => const HomePage(),
+          AddGroceryItem.id: (context) => const AddGroceryItem(),
+        },
+        initialRoute: HomePage.id,
       ),
-      debugShowCheckedModeBanner: false,
-      routes: {
-        HomePage.id: (context) => const HomePage(),
-        AddGroceryItem.id: (context) => const AddGroceryItem(),
-      },
-      initialRoute: HomePage.id,
     );
   }
 }
