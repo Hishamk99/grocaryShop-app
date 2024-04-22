@@ -46,4 +46,9 @@ class GetItemsCubit extends Cubit<GetItemsState> {
     groceryList.add(item);
     emit(GetItemsSuccess(groceryItems: groceryList));
   }
+
+  delete({required String id}) {
+    Api().deleteItem(id: id);
+    emit(GetItemsSuccess(groceryItems: groceryList));
+  }
 }

@@ -26,7 +26,7 @@ class GrocaryShop extends StatelessWidget {
             ),
             actionsIconTheme: IconThemeData(
               color: Colors.white,
-              size: 20,
+              size: 24,
             ),
             titleTextStyle: TextStyle(
               color: Colors.white,

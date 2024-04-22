@@ -23,6 +23,7 @@ class GroceryItem extends StatelessWidget {
         item.quantity,
         style: const TextStyle(
           color: Colors.white,
+          fontSize: 20,
         ),
       ),
     );

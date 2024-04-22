@@ -29,4 +29,9 @@ class Api {
           'Theres a problem with status code ${response.statusCode}');
     }
   }
+
+  deleteItem({required String id}) async {
+    await http.delete(Uri.parse(
+        'https://grocary-shop-default-rtdb.firebaseio.com/shopping-list/$id.json'));
+  }
 }
